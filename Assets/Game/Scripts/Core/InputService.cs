@@ -11,6 +11,8 @@ public class InputService : IInputService, IInitializable, IDisposable
     private bool _isUsing;
 
     public event Action JumpPressed;
+    public event Action UseStarted;
+    public event Action UseStopped;
     public event Action<Vector2> LookPerformed;
 
     public Vector2 Direction => _direction;
@@ -37,6 +39,11 @@ public class InputService : IInputService, IInitializable, IDisposable
     private void OnUse(InputAction.CallbackContext context)
     {
         _isUsing = context.ReadValueAsButton();
+
+        if (_isUsing)
+            UseStarted?.Invoke();
+        else
+            UseStopped?.Invoke();
     }
 
     private void OnJump(InputAction.CallbackContext context)

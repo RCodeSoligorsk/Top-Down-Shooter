@@ -12,9 +12,11 @@ public class CharacterMover : ITickable
     private float _maxSpeed;
     private float _jumpSpeed;
     private float _sensitivity;
+    private float _maxVerticalAngle;
 
     private Vector3 _velocity;
     private float _gravity = 9.81f;
+    private float _currentVerticalAngle;
     
     public CharacterMover(IInputService input, CharacterView characterView)
     {
@@ -24,8 +26,10 @@ public class CharacterMover : ITickable
         _maxSpeed = _characterView.MaxSpeed;
         _jumpSpeed = _characterView.JumpSpeed;
         _sensitivity = _characterView.Sensitivity;
+        _maxVerticalAngle = _characterView.MaxVerticalAngle;
         
         _input.JumpPressed += Jump;
+        _input.LookPerformed += Rotate;
     }
 
     private void Jump()
@@ -38,12 +42,20 @@ public class CharacterMover : ITickable
 
     private void Move()
     {
+        _velocity = _characterView.transform.TransformDirection(_velocity);
         _characterView.CharacterController.Move(_velocity * Time.deltaTime);
     }
 
-    private void Rotate()
+    private void Rotate(Vector2 mouseInput)
     {
+        float rotationY = mouseInput.x * _sensitivity * Time.deltaTime;
+        _characterView.transform.rotation *= Quaternion.Euler(0, rotationY, 0);
         
+        float rotationX = mouseInput.y * _sensitivity * Time.deltaTime;
+        _currentVerticalAngle -= rotationX;
+        
+        _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle, -_maxVerticalAngle, _maxVerticalAngle);
+        _characterView.Head.localEulerAngles = new Vector3(_currentVerticalAngle, 0, 0);
     }
 
     private void ChangeVelocity()
@@ -52,7 +64,6 @@ public class CharacterMover : ITickable
             _velocity.y -= _gravity * Time.deltaTime;
 
         Vector2 direction = _input.Direction;
-        direction = _characterView.CharacterController.transform.TransformDirection(direction);
         
         _velocity.x = direction.x * _maxSpeed;
         _velocity.z = direction.y * _maxSpeed;
