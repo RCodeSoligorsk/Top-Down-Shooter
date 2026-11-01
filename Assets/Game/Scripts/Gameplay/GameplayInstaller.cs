@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Gameplay;
 using Game.Scripts.Gameplay.Views;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,16 @@ public class GameplayInstaller : MonoInstaller<GameplayInstaller>
     {
         BindCharacterView();
         BindCharacterMover();
+        
+        BindPlayerCharacterInteractor();
+    }
+
+    private void BindPlayerCharacterInteractor()
+    {
+        Container
+            .BindInterfacesAndSelfTo<PlayerCharacterInteractor>()
+            .AsSingle()
+            .NonLazy();
     }
 
     private void BindCharacterView()

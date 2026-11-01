@@ -8,12 +8,14 @@ namespace Game.Scripts.Gameplay
         private SlingMoverView _view;
         
         private readonly Vector3 _startPosition;
+        private readonly Quaternion _startRotation;
 
         public SlingMover(SlingMoverView view)
         {
             _view = view;
             
             _startPosition = _view.transform.position;
+            _startRotation = _view.transform.rotation;
         }
 
         public void Move(Vector3 targetPosition)
@@ -24,11 +26,14 @@ namespace Game.Scripts.Gameplay
                 targetPosition = (targetPosition - _startPosition).normalized * _view.MaxStretchDistance + _startPosition;
             
             _view.transform.position = targetPosition;
+            
+            _view.transform.rotation = Quaternion.LookRotation(targetPosition - _startPosition) * Quaternion.Euler(180, -90, 0);
         }
 
         public void Reset()
         {
             _view.transform.position = _startPosition;
+            _view.transform.rotation = _startRotation;
         }
     }
 }

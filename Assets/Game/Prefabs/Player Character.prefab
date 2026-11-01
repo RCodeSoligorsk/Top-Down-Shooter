@@ -167,10 +167,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 8538575693341053346}
   <Head>k__BackingField: {fileID: 7291977923056527675}
+  <Hands>k__BackingField: {fileID: 4544479571598939913}
   <MaxSpeed>k__BackingField: 5
   <JumpSpeed>k__BackingField: 5
   <Sensitivity>k__BackingField: 3
   <MaxVerticalAngle>k__BackingField: 85
+  <ReachDistance>k__BackingField: 3
+  <InteractableLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &6356659188341232831
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +259,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7399376637245139592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4544479571598939913}
+  m_Layer: 0
+  m_Name: Hands
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4544479571598939913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7399376637245139592}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.306, z: 0.567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7291977923056527675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7434304793891134497
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,5 +320,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7361691778068329042}
+  - {fileID: 4544479571598939913}
   m_Father: {fileID: 1834687925511452803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
