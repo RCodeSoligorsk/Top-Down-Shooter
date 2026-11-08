@@ -76,6 +76,7 @@ public class InputService : IInputService, IInitializable, IDisposable
 
     public void Initialize()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         SubscribeToEvents();
     }
 }

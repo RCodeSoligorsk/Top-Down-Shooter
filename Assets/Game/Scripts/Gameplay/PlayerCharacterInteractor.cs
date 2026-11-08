@@ -9,7 +9,7 @@ namespace Game.Scripts.Gameplay
         private IInputService _inputService;
         private CharacterView _view;
 
-        private SlingMover _slingMover;
+        private IPickableMover _pickableMover;
 
         public PlayerCharacterInteractor(IInputService inputService, CharacterView view)
         {
@@ -27,27 +27,27 @@ namespace Game.Scripts.Gameplay
             if (Physics.Raycast(ray, out RaycastHit hit, _view.ReachDistance, _view.InteractableLayer) == false)
                 return;
 
-            if (hit.collider.TryGetComponent(out SlingMoverView sling) == false)
+            if (hit.collider.TryGetComponent(out IPickableMoverView pickable) == false)
                 return;
 
-            _slingMover = sling.SlingMover;
+            _pickableMover = pickable.PickableMover;
         }
 
         private void OnUseStop()
         {
-            if (_slingMover == null) 
+            if (_pickableMover == null) 
                 return;
             
-            _slingMover.Reset();
-            _slingMover = null;
+            _pickableMover.Drop();
+            _pickableMover = null;
         }
 
         public void Tick()
         {
-            if (_slingMover == null) 
+            if (_pickableMover == null) 
                 return;
             
-            _slingMover.Move(_view.Hands.position);
+            _pickableMover.Move(_view.Hands.position);
         }
     }
 }

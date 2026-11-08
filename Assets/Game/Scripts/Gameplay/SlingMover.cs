@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Gameplay
 {
-    public class SlingMover
+    public class SlingMover : IPickableMover
     {
         private SlingMoverView _view;
         
@@ -30,7 +30,7 @@ namespace Game.Scripts.Gameplay
             _view.transform.rotation = Quaternion.LookRotation(targetPosition - _startPosition) * Quaternion.Euler(180, -90, 0);
         }
 
-        public void Reset()
+        public void Drop()
         {
             _view.transform.position = _startPosition;
             _view.transform.rotation = _startRotation;
